@@ -5,49 +5,58 @@ var React = window.React = require('react'),
     Timer = require("./ui/Timer"),
     mountNode = document.getElementById("app");
 
-    var obj = {
+    var items = {
       'row1' : {
-        'key1' : 'input1',
-        'key2' : 'input2' 
+        'item1' : 1,
+        'item2' : 2 ,
+        'item3' : 3
       },
       'row2' : {
-        'key3' : 'input3',
-        'key4' : 'input4'
+        'item1' : 4,
+        'item2' : 5 ,
+        'item3' : 6
+      },
+      'row3' : {
+        'item1' : 7,
+        'item2' : 8 ,
+        'item3' : 9
       }
     };
 
 var TodoList = React.createClass({
   render: function() {
-    var createItem = function(itemText) {
-      return <li>{itemText.thing} <input value={itemText.stuff}/></li>;
-    };
-    return <ul>{this.props.items.map(createItem)}</ul>;
+    return(
+<table>
+<tr>
+<td>{items.row1.item1}</td>
+<td>{items.row1.item2}</td>
+<td>{items.row1.item2}</td>
+</tr>
+<tr>
+<td>{items.row2.item1}</td>
+<td>{items.row2.item2}</td>
+<td>{items.row2.item3}</td>
+</tr>
+<tr>
+<td>{items.row3.item1}</td>
+<td>{items.row3.item2}</td>
+<td>{items.row3.item3}</td>
+</tr>
+</table>
+)
   }
 });
 var TodoApp = React.createClass({
-  getInitialState: function() {
-    return {items: [{thing: "stuff" , stuff: "100"},{thing: "stuff" , stuff: "100"}], text: ''};
-  },
-  onChange: function(e) {
-    this.setState({text: e.target.value});
-  },
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var nextItems = this.state.items.concat([{thing : this.state.text, stuff : ""}]);
-    var nextText = '';
-    this.setState({items: nextItems, text: nextText});
+  getInitialState: function(){
+    return {items: items};
   },
   render: function() {
     return (
       <div>
         <h3>TODO</h3>
-        <TodoList items={this.state.items} />
+        <TodoList />
        <div className="stuff"><p>stuff</p></div>
        <div className="stuff">
-       <form onSubmit={this.handleSubmit}>
-          <input onChange={this.onChange} value={this.state.text} />
-          <button>Add</button>
-        </form>
         </div>
       </div>
     );
@@ -55,14 +64,7 @@ var TodoApp = React.createClass({
 });
 
 
-
-
-
-
-
-
-
-React.render(<TodoApp />, mountNode);
+React.render(<TodoApp data={items}/>, mountNode);
 
 
 
