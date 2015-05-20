@@ -5,66 +5,102 @@ var React = window.React = require('react'),
     Timer = require("./ui/Timer"),
     mountNode = document.getElementById("app");
 
-    var items = {
-      'row1' : {
-        'item1' : 1,
-        'item2' : 2 ,
-        'item3' : 3
-      },
-      'row2' : {
-        'item1' : 4,
-        'item2' : 5 ,
-        'item3' : 6
-      },
-      'row3' : {
-        'item1' : 7,
-        'item2' : 8 ,
-        'item3' : 9
-      }
-    };
 
-var TodoList = React.createClass({
+var cat1 =  [
+    {name  : 'one', value : 1},
+    {name  : 'two', value : 2}
+      ]; 
+
+var cat2 =  [
+    {name  : 'three', value : 3},
+    {name  : 'four', value : 4}
+      ];
+
+
+// <table body> 
+// > section header = section title and table column headers
+//     > section table = function to iterate over data & spit out rows 
+//           > section row =  rows to be populated with JS array data 
+//           > add new row button == enables addition of new rows 
+//           > summary section == sums array values
+// </table Body>
+
+// > Summary Area = sums all sum array values 
+
+
+
+
+var CalcTable = React.createClass({
   render: function() {
     return(
 <table>
-<tr>
-<td>{items.row1.item1}</td>
-<td>{items.row1.item2}</td>
-<td>{items.row1.item2}</td>
-</tr>
-<tr>
-<td>{items.row2.item1}</td>
-<td>{items.row2.item2}</td>
-<td>{items.row2.item3}</td>
-</tr>
-<tr>
-<td>{items.row3.item1}</td>
-<td>{items.row3.item2}</td>
-<td>{items.row3.item3}</td>
-</tr>
+<CalcRow />
 </table>
 )
   }
 });
+
+var CalcRow = React.createClass({
+  render: function(){
+    return(
+        <tr>
+          <td>X</td>
+          <td>{cat2[0].name}</td>
+          <td><input value={cat2[0].value}/></td>
+        </tr>
+      )
+  }
+});
+
+var AddRowButton = React.createClass({
+    handleSubmit: function(e) {
+
+  },
+  render: function(){
+    return(
+        <form onSubmit={this.props.cat1}>
+        <input onChange={this.handleSubmit} value="" />
+        <button>Add</button>
+        </form>
+      )
+  }
+});
+
+
+var SectionSummary = React.createClass({
+  render: function(){
+  return(
+    <div className="summary"></div>
+    );
+  }
+});
+
+
+
 var TodoApp = React.createClass({
   getInitialState: function(){
-    return {items: items};
+    return {
+      cat1: cat1,
+      cat2: cat2
+    };
   },
   render: function() {
     return (
       <div>
-        <h3>TODO</h3>
-        <TodoList />
-       <div className="stuff"><p>stuff</p></div>
-       <div className="stuff">
-        </div>
+          <h3>title</h3>
+          <CalcTable />
+         <div className="stuff"><p>stuff</p></div>
+         <div className="stuff">
+            <AddRowButton />
+          </div>
+            <SectionSummary />
       </div>
     );
   }
 });
 
 
-React.render(<TodoApp data={items}/>, mountNode);
+React.render(<TodoApp />, mountNode);
 
 
 
