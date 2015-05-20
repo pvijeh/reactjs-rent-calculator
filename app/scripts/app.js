@@ -5,13 +5,13 @@ var React = window.React = require('react'),
     Timer = require("./ui/Timer"),
     mountNode = document.getElementById("app");
 
-
-var cat1 =  [
+var catOne =  [
     {name  : 'one', value : 1},
-    {name  : 'two', value : 2}
+    {name  : 'two', value : 2},
+    {name  : 'three', value : 3}
       ]; 
 
-var cat2 =  [
+var catTwo =  [
     {name  : 'three', value : 3},
     {name  : 'four', value : 4}
       ];
@@ -32,11 +32,13 @@ var cat2 =  [
 
 var CalcTable = React.createClass({
   render: function() {
+    var rows = [];
+    this.props.cat1.forEach(function(item){
+      rows.push(<CalcRow item={item} key={item.name}/>);
+    });
     return(
-<table>
-<CalcRow />
-</table>
-)
+      <table>{rows}</table>
+    )
   }
 });
 
@@ -44,54 +46,71 @@ var CalcRow = React.createClass({
   render: function(){
     return(
         <tr>
-          <td>X</td>
-          <td>{cat2[0].name}</td>
-          <td><input value={cat2[0].value}/></td>
+          <td>g</td>
+          <td>{this.props.item.name}</td>
+          <td><input value={this.props.item.value}/></td>
         </tr>
       )
   }
 });
 
-var AddRowButton = React.createClass({
-    handleSubmit: function(e) {
+var AddRowButton = React.createClass({ 
+     handleSubmit: function() {
+
+this.props.onSubmit(this);
 
   },
   render: function(){
     return(
-        <form onSubmit={this.props.cat1}>
-        <input onChange={this.handleSubmit} value="" />
-        <button>Add</button>
+
+        <form onSubmit={this.handleSubmit}>
+          <input />
+          <button>Add</button>
         </form>
       )
   }
 });
 
-
 var SectionSummary = React.createClass({
   render: function(){
   return(
-    <div className="summary"></div>
+    <div className="summary">
+        <div className="table-summary">
+        stuff
+        </div>
+
+    </div>
     );
   }
 });
 
-
-
 var TodoApp = React.createClass({
   getInitialState: function(){
     return {
-      cat1: cat1,
-      cat2: cat2
+      cat1: this.props.cat1
     };
+  },
+       handleSubmit: function(AddRowButton) {
+      console.log(this.props.cat1);
+      c = this.props.cat1; 
+
+      c = c.push({name : "four", value : 4});
+
+      console.log(c);
+
+      this.setState({
+        cat1:c
+      });
+
   },
   render: function() {
     return (
       <div>
           <h3>title</h3>
-          <CalcTable />
+          <CalcTable  cat1={this.props.cat1}/>
          <div className="stuff"><p>stuff</p></div>
          <div className="stuff">
-            <AddRowButton />
+            <AddRowButton cat1={this.props.cat1} onSubmit={this.handleSubmit}/>
           </div>
             <SectionSummary />
       </div>
@@ -100,7 +119,7 @@ var TodoApp = React.createClass({
 });
 
 
-React.render(<TodoApp />, mountNode);
+React.render(<TodoApp cat1={catOne}/>, mountNode);
 
 
 
