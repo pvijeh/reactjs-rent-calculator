@@ -27,29 +27,6 @@ var catTwo =  [
 // > Summary Area = sums all sum array values 
 
 
-// <table body> 
-// > section header = section title and table column headers
-//     > section table = function to iterate over data & spit out rows 
-//           > section row =  rows to be populated with JS array data 
-//           > add new row button == enables addition of new rows 
-//           > summary section == sums array values
-// </table Body>
-
-// > Summary Area = sums all sum array values 
-
-
-
-// <table body> 
-// > section header = section title and table column headers
-//     > section table = function to iterate over data & spit out rows 
-//           > section row =  rows to be populated with JS array data 
-//           > add new row button == enables addition of new rows 
-//           > summary section == sums array values
-// </table Body>
-
-// > Summary Area = sums all sum array values 
-
-
 var CalcTable = React.createClass({
   render: function() {
     var rows = [];
