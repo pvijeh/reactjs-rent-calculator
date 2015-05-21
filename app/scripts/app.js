@@ -6,16 +6,15 @@ var React = window.React = require('react'),
     mountNode = document.getElementById("app");
 
 var catOne =  [
-    {name  : 'one', value : 1},
-    {name  : 'two', value : 2},
-    {name  : 'three', value : 3}
+    {name  : 'one', value : 5, key : 1},
+    {name  : 'two', value : 2, key : 2},
+    {name  : 'three', value : 3, key : 3}
       ]; 
 
 var catTwo =  [
     {name  : 'three', value : 3},
     {name  : 'four', value : 4}
       ];
-
 
 // <table body> 
 // > section header = section title and table column headers
@@ -27,14 +26,18 @@ var catTwo =  [
 
 // > Summary Area = sums all sum array values 
 
-
-
-
 var CalcTable = React.createClass({
   render: function() {
     var rows = [];
-    this.props.cat1.forEach(function(item){
-      rows.push(<CalcRow item={item} />);
+
+    var dogOne = this.props.cat1;     
+
+    dogOne[1].name = 'fizive'; 
+
+    console.log(dogOne[1].name);
+
+    dogOne.forEach(function(item){
+      rows.push(<CalcRow item={item} key={item.key}/>);
     });
     return(
       <table>{rows}</table>
@@ -43,12 +46,16 @@ var CalcTable = React.createClass({
 });
 
 var CalcRow = React.createClass({
+    handleUserInput: function(event) {
+      console.log(event);
+      this.props.onChange(this);
+  },
   render: function(){
     return(
         <tr>
-          <td>g</td>
+          <td>x</td>
           <td>{this.props.item.name}</td>
-          <td><input value={this.props.item.value}/></td>
+          <td><input value={this.props.item.value} onChange={this.handleUserInput}/></td>
         </tr>
       )
   }
@@ -57,12 +64,10 @@ var CalcRow = React.createClass({
 var AddRowButton = React.createClass({ 
      handleSubmit: function(e) {
       e.preventDefault();
-this.props.onSubmit(this);
-
+      this.props.onSubmit(this);
   },
   render: function(){
     return(
-
         <form onSubmit={this.handleSubmit}>
           <input />
           <button>Add</button>
@@ -85,24 +90,22 @@ var SectionSummary = React.createClass({
 });
 
 var TodoApp = React.createClass({
-  getInitialState: function(){
+    getInitialState: function(){
     return {
       cat1: this.props.cat1
-    };
-  },
-       handleSubmit: function() {
-      console.log(this.props.cat1);
-      c = this.props.cat1; 
-
-      c = c.push({name : "four", value : 4});
-
-      console.log(c);
-
-      this.setState({
+      };
+     },
+    handleSubmit: function() {
+        // console.log(this.props.cat1);
+        console.log(this.props.cat1.length+1);
+        var newKeyVal = this.props.cat1.length+1;
+        c = this.props.cat1; 
+        c = c.push({name : "four", value : 4, key : newKeyVal});
+        this.setState({
         cat1:c
       });
-
-  },
+        console.log(this.state.cat1);
+    },
   render: function() {
     return (
       <div>
@@ -118,13 +121,7 @@ var TodoApp = React.createClass({
   }
 });
 
-
 React.render(<TodoApp cat1={catOne}/>, mountNode);
-
-
-
-
-
 
 // var TodoList = React.createClass({
 //   render: function() {
