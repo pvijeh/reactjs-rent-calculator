@@ -34,7 +34,7 @@ var CalcTable = React.createClass({
   render: function() {
     var rows = [];
     this.props.cat1.forEach(function(item){
-      rows.push(<CalcRow item={item} key={item.name}/>);
+      rows.push(<CalcRow item={item} />);
     });
     return(
       <table>{rows}</table>
@@ -55,8 +55,8 @@ var CalcRow = React.createClass({
 });
 
 var AddRowButton = React.createClass({ 
-     handleSubmit: function() {
-
+     handleSubmit: function(e) {
+      e.preventDefault();
 this.props.onSubmit(this);
 
   },
@@ -90,7 +90,7 @@ var TodoApp = React.createClass({
       cat1: this.props.cat1
     };
   },
-       handleSubmit: function(AddRowButton) {
+       handleSubmit: function() {
       console.log(this.props.cat1);
       c = this.props.cat1; 
 
