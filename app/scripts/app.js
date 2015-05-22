@@ -47,16 +47,16 @@ var CalcTable = React.createClass({
 });
 
 var CalcRow = React.createClass({
-    handleUserInput: function(event) {
-      console.log(event);
-      this.props.onChange(this);
+    handleUserInput: function(evt) {
+      console.log(evt.target.value);
+      console.log(evt.target.name);
   },
   render: function(){
     return(
         <tr>
-          <td>x</td>
+          <td>f</td>
           <td>{this.props.item.name}</td>
-          <td><input value={this.props.item.value} onChange={this.handleUserInput}/></td>
+          <td><input value={this.props.item.value} name={this.props.item.key} onChange={this.handleUserInput}/></td>
         </tr>
       )
   }
