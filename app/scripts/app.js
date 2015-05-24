@@ -11,34 +11,18 @@ var catOne =  [
     {name  : 'three', value : 3, key : 3}
       ]; 
 
-var catTwo =  [
-    {name  : 'three', value : 3},
-    {name  : 'four', value : 4}
-      ];
-
-// <table body> 
-// > section header = section title and table column headers
-//     > section table = function to iterate over data & spit out rows 
-//           > section row =  rows to be populated with JS array data 
-//           > add new row button == enables addition of new rows 
-//           > summary section == sums array values
-// </table Body>
-
-// > Summary Area = sums all sum array values 
-
-
 var CalcTable = React.createClass({
+  changeHandler: function(){
+    console.log('ding');
+    this.props.onChange();
+  },
   render: function() {
     var rows = [];
 
-    var dogOne = this.props.cat1;     
+    // var myVar = this.props.cat1;     
 
-    dogOne[1].name = 'fizive'; 
-
-    console.log(dogOne[1].name);
-
-    dogOne.forEach(function(item){
-      rows.push(<CalcRow item={item} key={item.key}/>);
+    this.props.cat1.forEach(function(item){
+      rows.push(<CalcRow item={item} ref="row" key={item.key}  onChange={this.changeHandler} />);
     });
     return(
       <table>{rows}</table>
@@ -47,16 +31,16 @@ var CalcTable = React.createClass({
 });
 
 var CalcRow = React.createClass({
-    handleUserInput: function(evt) {
-      console.log(evt.target.value);
-      console.log(evt.target.name);
-  },
+    changeHandler: function(e) {
+      console.log('ping');
+        this.props.onChange();
+    },
   render: function(){
     return(
         <tr>
-          <td>f</td>
+          <td>h</td>
           <td>{this.props.item.name}</td>
-          <td><input value={this.props.item.value} name={this.props.item.key} onChange={this.handleUserInput}/></td>
+          <td><input  cat1={this.props.item} value={this.props.item.value} name={this.props.item.key}  onChange={this.changeHandler}  /></td>
         </tr>
       )
   }
@@ -90,7 +74,10 @@ var SectionSummary = React.createClass({
   }
 });
 
-var TodoApp = React.createClass({
+var CalcApp = React.createClass({
+      changeHandler: function(e) {
+      console.log('bong');
+    },
     getInitialState: function(){
     return {
       cat1: this.props.cat1
@@ -98,20 +85,20 @@ var TodoApp = React.createClass({
      },
     handleSubmit: function() {
         // console.log(this.props.cat1);
-        console.log(this.props.cat1.length+1);
+        // console.log(this.props.cat1.length+1);
         var newKeyVal = this.props.cat1.length+1;
         c = this.props.cat1; 
         c = c.push({name : "four", value : 4, key : newKeyVal});
         this.setState({
         cat1:c
       });
-        console.log(this.state.cat1);
+        // console.log(this.state.cat1);
     },
   render: function() {
     return (
       <div>
           <h3>title</h3>
-          <CalcTable  cat1={this.props.cat1}/>
+          <CalcTable  cat1={this.props.cat1} onChange={this.changeHandler}/>
          <div className="stuff"><p>stuff</p></div>
          <div className="stuff">
             <AddRowButton cat1={this.props.cat1} onSubmit={this.handleSubmit}/>
@@ -122,7 +109,7 @@ var TodoApp = React.createClass({
   }
 });
 
-React.render(<TodoApp cat1={catOne}/>, mountNode);
+React.render(<CalcApp cat1={catOne}/>, mountNode);
 
 // var TodoList = React.createClass({
 //   render: function() {
@@ -160,3 +147,14 @@ React.render(<TodoApp cat1={catOne}/>, mountNode);
 //   }
 // });
 
+
+
+// <table body> 
+// > section header = section title and table column headers
+//     > section table = function to iterate over data & spit out rows 
+//           > section row =  rows to be populated with JS array data 
+//           > add new row button == enables addition of new rows 
+//           > summary section == sums array values
+// </table Body>
+
+// > Summary Area = sums all sum array values 
