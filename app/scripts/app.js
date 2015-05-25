@@ -6,43 +6,31 @@ var React = window.React = require('react'),
     mountNode = document.getElementById("app");
 
 var catOne =  [
-    {name  : 'one', value : 5, key : 1},
+    {name  : 'one', value : 1, key : 1},
     {name  : 'two', value : 2, key : 2},
     {name  : 'three', value : 3, key : 3}
       ]; 
 
 var CalcTable = React.createClass({
-  changeHandler: function(){
+  handleChange: function(evt){
     console.log('ding');
-    this.props.onChange();
+    console.log(evt);
   },
   render: function() {
     var rows = [];
-
     // var myVar = this.props.cat1;     
-
     this.props.cat1.forEach(function(item){
-      rows.push(<CalcRow item={item} ref="row" key={item.key}  onChange={this.changeHandler} />);
+      rows.push(
+        <tr key={item.key}>
+        <td>{item.name}</td>
+        <td><input value={item.value} /></td>
+        <td>h</td>
+        </tr>
+        );
     });
     return(
       <table>{rows}</table>
     )
-  }
-});
-
-var CalcRow = React.createClass({
-    changeHandler: function(e) {
-      console.log('ping');
-        this.props.onChange();
-    },
-  render: function(){
-    return(
-        <tr>
-          <td>h</td>
-          <td>{this.props.item.name}</td>
-          <td><input  cat1={this.props.item} value={this.props.item.value} name={this.props.item.key}  onChange={this.changeHandler}  /></td>
-        </tr>
-      )
   }
 });
 
@@ -75,9 +63,7 @@ var SectionSummary = React.createClass({
 });
 
 var CalcApp = React.createClass({
-      changeHandler: function(e) {
-      console.log('bong');
-    },
+
     getInitialState: function(){
     return {
       cat1: this.props.cat1
@@ -98,7 +84,7 @@ var CalcApp = React.createClass({
     return (
       <div>
           <h3>title</h3>
-          <CalcTable  cat1={this.props.cat1} onChange={this.changeHandler}/>
+          <CalcTable  cat1={this.props.cat1} somethingHandler={this.somethingHandler}/>
          <div className="stuff"><p>stuff</p></div>
          <div className="stuff">
             <AddRowButton cat1={this.props.cat1} onSubmit={this.handleSubmit}/>
