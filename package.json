@@ -1,9 +1,7 @@
 {
   "name": "react-calc",
   "version": "0.0.0",
-  "dependencies": {
-    "reflux": "^0.2.7"
-  },
+  "dependencies": {},
   "devDependencies": {
     "browser-sync": "latest",
     "browserify-shim": "^3.8.0",

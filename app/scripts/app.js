@@ -1,7 +1,6 @@
 
 var React = window.React = require('react'),
-// include external components from ui folder like the exmaple blow: 
-//  Timer = require("./ui/Timer"),
+      Reflux = window.Reflux = require('reflux'),
     Timer = require("./ui/Timer"),
     mountNode = document.getElementById("app");
 
@@ -10,6 +9,7 @@ var catOne =  [
     {name  : 'two', value : 2, key : 2},
     {name  : 'three', value : 3, key : 3}
       ]; 
+
 
 var CalcTable = React.createClass({
   handleChange: function(evt){
